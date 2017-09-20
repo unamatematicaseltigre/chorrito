@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Robot para el chorrito (público)
-// @version      1.14
+// @version      1.14a
 // @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta.
 // @author       laurentum
 // @match        https://freebitco.in/*
