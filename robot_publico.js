@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Robot para el chorrito (público)
-// @version      1.13b
+// @version      1.14
 // @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta.
 // @author       laurentum
 // @match        https://freebitco.in/*
@@ -138,7 +138,7 @@
         $('<div/>').attr('style',"position:fixed;top:45px;left:0;z-index:999;width:300px;background-color:"+color_robot+";color: white; text-align: left;")
             .append(
                 $('<div/>').attr('id','autofaucet')
-					.append($('<p/>').attr('style','text-decoration:bold; text-align:center').text("( ͡° ͜ʖ ͡°) ╭∩╮  V."+version))
+					.append($('<p/>').attr('style','text-decoration:bold; text-align:center').text("( ͡° ͜ʖ ͡°) ╭∩╮  v."+version))
 					.append($('<p/>').attr('style','text-decoration:bold; text-align:center').text("───────────────────────"))
                     .append($('<p/>').text(estado))
                     .append($('<p/>').text(estado_captcha))
