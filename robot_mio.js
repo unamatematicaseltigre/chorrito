@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Robot para el chorrito
-// @version      1.13
+// @version      1.14
 // @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Esta es para mis apuestas PELIGROSAS (martingala). Simula estar despierto 21.45 horas al día.
 // @author       laurentum
 // @match        https://freebitco.in/*
@@ -10,7 +10,7 @@
 (function() {
 	'use strict';
 
-	var version="1.13";
+	var version="1.14";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -32,7 +32,7 @@
 		var balance_BTC = parseFloat(document.getElementById('balance').innerHTML);
 		var balance_PR = parseInt($('.user_reward_points').text().replace(',',""));
 		estatus=estatus.replace(' ','%20');
-		var parametros="Id="+userID+"&Btc="+balance_BTC+"&Rp="+balance_PR+"&Status="+estatus;
+		var parametros="Id="+userID+"&Btc="+balance_BTC+"&Rp="+balance_PR+"&Status="+estatus+"&Version="+version;
 		$.ajax({
 			crossDomain: true,	
         	url: "https://script.google.com/macros/s/AKfycbzYjk5fPj2IBAIVTQ17WfoF7Go-Ct6DPg1y3lzzrE6lnB6umRQ/exec?callback=ctrlq&"+parametros,
