@@ -5,6 +5,8 @@
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
+// @updateURL    https://raw.githubusercontent.com/laurentum/chorrito/master/robot_publico.js
+// @downloadURL  https://raw.githubusercontent.com/laurentum/chorrito/master/robot_publico.js
 // ==/UserScript==
 
 (function() {
