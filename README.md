@@ -23,6 +23,6 @@ Pobre laurentum se desbancó.
 
 Usar https://rawgit.com para generar los enlaces de los robots JS con servidores CDN. Los enlaces a las ultimas versiones son:
 
-https://cdn.rawgit.com/laurentum/chorrito/623b71cd/robot_mio.js (para los machos valientes)
+https://raw.githubusercontent.com/laurentum/chorrito/master/robot_mio.js (para los machos valientes)
 
-y https://cdn.rawgit.com/laurentum/chorrito/623b71cd/robot_publico.js (para los caguetas)
+y https://raw.githubusercontent.com/laurentum/chorrito/master/robot_publico.js (para los caguetas)
