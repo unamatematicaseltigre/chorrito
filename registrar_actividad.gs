@@ -1,7 +1,8 @@
 // El robot de google
-// Version : 1.01
+// Version : 1.02
+// deployed as https://script.google.com/macros/s/AKfycbzYjk5fPj2IBAIVTQ17WfoF7Go-Ct6DPg1y3lzzrE6lnB6umRQ/exec
 
-var SHEET_NAME = "Sheet1";
+var SHEET_NAME = "Actividad";
 var SCRIPT_PROP = PropertiesService.getScriptProperties(); // propiedad de nuevo servicio
 
 function doGet(e){
@@ -43,7 +44,7 @@ function recibeData(e) {
 	var duplicado=false;
 	var data_hoja = sheet.getRange(2,2,sheet.getLastRow()-1,sheet.getLastColumn()-1).getValues();
 	for (i in data_hoja) {
-		if (data_hoja[i].join()===fila_nueva) {duplicado=true;}
+		if (data_hoja[i].join()==fila_nueva) {duplicado=true;}
 	}
     // escribe los datos en la última fila de la hoja
 	if (!duplicado) {sheet.getRange(nextRow, 1, 1, row.length).setValues([row]);}
