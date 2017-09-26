@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Robot para el chorrito (público)
-// @version      1.15b
+// @version      1.16b
 // @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta.
 // @author       laurentum
 // @match        https://freebitco.in/*
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.15b";
+	var version="1.16b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -168,8 +168,12 @@
 		if (hora_actual==12) {Reportar("Balance al día");} // manda el reporte diario a las 12 del mediodía.
 	} else {
 		setTimeout(function(){location.reload();},3600000); // nos vemos en una hora.
-		if (hora_actual==12) {Reportar("Balance al día");} // manda el reporte diario a las 12 del mediodía.
-		if (hay_captcha) {Reportar("captcha");} // reporta el problema
+		if (hora_actual==12) {	// manda el reporte diario a las 12 del mediodía.
+			if (hay_captcha) {
+				Reportar("Balance al día (captcha)");
+			} else {Reportar("Balance al día.");}
+		} else
+			if (hay_captcha) {Reportar("captcha");} // reporta el problema
 	}
 })();
 
