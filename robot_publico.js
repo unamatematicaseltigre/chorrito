@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Robot para el chorrito (público)
-// @version      1.16b
-// @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta.
+// @version      1.17b
+// @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. En esta versin, se elimino la dormidera y ahora detecta el recaptcha.
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.16b";
+	var version="1.17b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -105,24 +105,13 @@
 	};
 
 	var body = $('body');	
-	// verifica si el tipo esta despierto para operar el chorrito
-	// (en promedio este robot trabaja 21.45 horas al dia)
-	var umbral=1.0;
-	var hora_actual=new Date();
-	hora_actual=hora_actual.getHours();
-	if (hora_actual<4) {umbral=0.6;}
-	else if (hora_actual<7) {umbral=0.95;}
-	else if (hora_actual<12) {umbral=0.99;}
-	else if (hora_actual<14) {umbral=0.95;}
-	else if (hora_actual<19) {umbral=0.99;}
-	else if (hora_actual<23) {umbral=0.95;}
-	else umbral=0.6;
-	var despierto=Math.random()<umbral;
+	// el tipo siempre estará despierto.
+	var despierto=true;
 	var estado="";
 	if (despierto) {estado="Estoy despierto.";}
 	else {estado="Estoy dormido.";}
 	// verifica si hay captcha
-	var hay_captcha=$('#captchasnet_free_play_captcha').is(':visible');
+	var hay_captcha=($('#captchasnet_free_play_captcha').is(':visible'))||($('#free_play_recaptcha').is(':visible'));
 	var bloqueo_ip=$('#free_play_error').is(':visible');
 	var estado_captcha="";
 	var color_robot="#054908";
