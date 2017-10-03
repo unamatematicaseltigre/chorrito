@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Robot para el chorrito (público)
-// @version      1.17b
-// @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. En esta versin, se elimino la dormidera y ahora detecta el recaptcha.
+// @version      1.18b
+// @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. En esta versión, se arregló un bug del reporte diario y ahora se reporta a una hora distinta, según el ID de la cuenta en FBTC.
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.17b";
+	var version="1.18b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -30,10 +30,7 @@
 
 	// función para reportar
 	function Reportar(estatus) {
-		var userID = (((document.getElementById('edit_tab')).getElementsByTagName('p')[0]).getElementsByTagName('span')[1]).innerHTML;
-		var balance_BTC = parseFloat(document.getElementById('balance').innerHTML);
-		var balance_PR = parseInt($('.user_reward_points').text().replace(',',""));
-		estatus=estatus.replace(' ','%20');
+	estatus=estatus.replace(' ','%20');
 		var parametros="Id="+userID+"&Btc="+balance_BTC+"&Rp="+balance_PR+"&Status="+estatus+"&Version="+version;
 		$.ajax({
 			crossDomain: true,	
@@ -104,10 +101,18 @@
 		}
 	};
 
-	var body = $('body');	
+	var body = $('body');
+	// datos de esta cuenta
+	var userID = (((document.getElementById('edit_tab')).getElementsByTagName('p')[0]).getElementsByTagName('span')[1]).innerHTML;
+	userID = parseInt(userID);
+	var hora_reporte=userID % 24;
+	var balance_BTC = parseFloat(document.getElementById('balance').innerHTML);
+	var balance_PR = parseInt($('.user_reward_points').text().replace(',',""));
 	// el tipo siempre estará despierto.
 	var despierto=true;
 	var estado="";
+	var hora_actual=new Date();
+	hora_actual=hora_actual.getHours();
 	if (despierto) {estado="Estoy despierto.";}
 	else {estado="Estoy dormido.";}
 	// verifica si hay captcha
@@ -154,10 +159,10 @@
 				setTimeout(function(){$('.close-reveal-modal').click();},1000);
 			}
 		},timeout+12000); // cierra la ventana de dialogo pop-up 10 segundos despues de jugar el chorrito
-		if (hora_actual==12) {Reportar("Balance al día");} // manda el reporte diario a las 12 del mediodía.
+		if (hora_actual==hora_reporte) {Reportar("Balance al día");} // manda el reporte diario a las 12 del mediodía.
 	} else {
 		setTimeout(function(){location.reload();},3600000); // nos vemos en una hora.
-		if (hora_actual==12) {	// manda el reporte diario a las 12 del mediodía.
+		if (hora_actual==hora_reporte) {	// manda el reporte diario a las 12 del mediodía.
 			if (hay_captcha) {
 				Reportar("Balance al día (captcha)");
 			} else {Reportar("Balance al día.");}
