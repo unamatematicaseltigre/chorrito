@@ -23,6 +23,8 @@ Pobre laurentum se desbancó.
 
 Usar https://rawgit.com para generar los enlaces de los robots JS con servidores CDN. Los enlaces a las ultimas versiones son:
 
-https://raw.githubusercontent.com/laurentum/chorrito/master/robot_mio.js (para los machos valientes)
+https://raw.githubusercontent.com/laurentum/chorrito/master/robot_mio.js : este es el robot ludopata. est descontinuado.
 
-y https://raw.githubusercontent.com/laurentum/chorrito/master/robot_publico.js (para los caguetas)
+https://raw.githubusercontent.com/laurentum/chorrito/master/robot_publico.js: el robot que usa todo el mundo. no apuesta.
+
+https://raw.githubusercontent.com/laurentum/chorrito/master/robot_obrero_a.js: es un robot de prueba para cuentas obreras. no activa bonos de free roll.
