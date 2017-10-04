@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Robot para las cuentas obreras
-// @version      1.00d
+// @version      1.10d
 // @description  Este robot activa sólo los bonos para más PR, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. Es un fork de la v. 1.18b del robot_publico.
 // @author       laurentum
 // @match        https://freebitco.in/*
@@ -56,7 +56,13 @@
         } else
             premios.temporizadorbono.actual = 0;
         if (premios.temporizadorbono.actual === 0 & tiemporestante()===0) {
-			if (premios.puntos>1200) {
+			if (premios.puntos>101200) {
+				document.getElementById("encash_points_number").value="100000";
+				RedeemRPProduct('cash');
+				RedeemRPProduct('free_points_100');
+				Reportar("Canjeando puntos por satoshis + bono de 100RP.");
+			}
+			else if (premios.puntos>1200) {
 				Reportar("Activando el bono de 100RP por lanzamiento.");
 				RedeemRPProduct('free_points_100');
 			}
