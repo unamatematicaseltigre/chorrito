@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Robot para el chorrito (público)
-// @version      1.18b
-// @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. En esta versión, se arregló un bug del reporte diario y ahora se reporta a una hora distinta, según el ID de la cuenta en FBTC.
+// @version      1.19b
+// @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. En esta versión, se eliminó la función de apostar.
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.18b";
+	var version="1.19b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -89,17 +89,6 @@
 			}
 		}
 	};
-	// apostador es la rutina de apostar
-	var apostador={};
-	apostador.rutina = function() {
-		var saldoBTC = parseFloat(document.getElementById('balance').innerHTML);
-		var apostar=Math.random()<0.5;	//a veces apuesta (con un 50% de probabilidad)
-		if (apostar & saldoBTC>0.00000100) {	//apuesta sólo si hay fuerza (saldo>100 satoshi)
-			document.getElementById("autobet_roll_count").value="100";
-			document.getElementById("autobet_change_client_seed").checked=true;
-			$("#start_autobet").click();
-		}
-	};
 
 	var body = $('body');
 	// datos de esta cuenta
@@ -144,12 +133,7 @@
 	// activa la rutina para que se ejecute repetidamente de manera asíncrona según condiciones:
 	if (despierto & !hay_captcha & !bloqueo_ip) {	
 		setTimeout(premios.rutina,1000);  // activar en un segundo
-		var timeout=Math.floor(Math.random() * 30 )*60000+180000; 
-		setTimeout(apostador.rutina,timeout);	// apostar una vez en un tiempo aleatorio entre 3 y 33 minutos.
-		// Luego de activar bonos, cobra el chorrito cuando sea posible.
-		// El cobro del chorrito se hace aproximadamente cada hora, con tiempos 
-		// de inter-cobro aleatorios para no levantar sospechas.
-		timeout=Math.floor(Math.random() * 60 )*1000+2000; //timeout adicional entre 2 y 62 segundos
+		var timeout=Math.floor(Math.random() * 60 )*1000+2000; //timeout adicional entre 2 y 62 segundos
    		if ($('#free_play_form_button').is(':visible')) {
 			console.log("Cobrando el premios.");
    			setTimeout(function(){ $('#free_play_form_button').click();},timeout);
