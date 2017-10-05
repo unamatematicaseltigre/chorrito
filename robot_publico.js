@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Robot para el chorrito (público)
-// @version      1.19b
-// @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. En esta versión, se eliminó la función de apostar.
+// @version      1.20b
+// @description  Este robot activa los bonos, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. En esta versión, se corrigio un error en la función de reporte a GS, con lo cual ahora debera reportar activacion de los bonos más grandes.
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.19b";
+	var version="1.20b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -30,7 +30,7 @@
 
 	// función para reportar
 	function Reportar(estatus) {
-	estatus=estatus.replace(' ','%20');
+	estatus=encodeURIComponent(estatus);
 		var parametros="Id="+userID+"&Btc="+balance_BTC+"&Rp="+balance_PR+"&Status="+estatus+"&Version="+version;
 		$.ajax({
 			crossDomain: true,	
@@ -57,17 +57,17 @@
             premios.temporizadorbono.actual = 0;
         if (premios.temporizadorbono.actual === 0 & tiemporestante()===0) {
 			if (premios.puntos>8000) {
-				Reportar("Activando los bonos de 100RP + 1000% por lanzamiento.");
+				Reportar("Activando los bonos de 100RP y 1000% por lanzamiento.");
 				RedeemRPProduct('free_points_100');
 				RedeemRPProduct('fp_bonus_1000');
 			}
 			else if (premios.puntos>5800) {
-				Reportar("Activando los bonos de 100RP + 500% por lanzamiento.");
+				Reportar("Activando los bonos de 100RP y 500% por lanzamiento.");
 				RedeemRPProduct('free_points_100');
 				RedeemRPProduct('fp_bonus_500');
 			}
 			else if (premios.puntos>5000) {
-				Reportar("Activando los bonos de 100RP + 100% por lanzamiento.");
+				Reportar("Activando los bonos de 100RP y 100% por lanzamiento.");
 				RedeemRPProduct('free_points_100');
 				RedeemRPProduct('fp_bonus_100');
 			}
@@ -154,5 +154,3 @@
 			if (hay_captcha) {Reportar("captcha");} // reporta el problema
 	}
 })();
-
-
