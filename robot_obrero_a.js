@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Robot para las cuentas obreras
-// @version      1.10d
-// @description  Este robot activa sólo los bonos para más PR, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. Es un fork de la v. 1.18b del robot_publico.
+// @version      1.11d
+// @description  Este robot activa sólo los bonos para más PR, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. Se le arregló un bug en la función de reportes y cobra el bono de canje de PR por satoshis el sólo.
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.00d";
+	var version="1.11d";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -30,7 +30,7 @@
 
 	// función para reportar
 	function Reportar(estatus) {
-	estatus=estatus.replace(' ','%20');
+	estatus=encodeURIComponent(estatus);
 		var parametros="Id="+userID+"&Btc="+balance_BTC+"&Rp="+balance_PR+"&Status="+estatus+"&Version="+version;
 		$.ajax({
 			crossDomain: true,	
