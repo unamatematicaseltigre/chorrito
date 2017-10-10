@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Robot para las cuentas obreras
-// @version      1.15a
+// @version      1.16a
 // @description  Este es el robot ahorrador. En esta versión se detecta el "timer running"
 // @author       laurentum
 // @match        https://freebitco.in/*
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.15a";
+	var version="1.16a";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -103,7 +103,7 @@
 	var color_robot="#054908";
 	if (hay_captcha) {estado_captcha="¡Maldita captcha! Reportando a mi amo..."; color_robot="#a40000";}
 	if (timer_running) {estado_captcha="El reloj está corriendo. Reportando a mi amo..."; color_robot="#a40000";}
-	if (!timer_running & !hay_captcha} {
+	if (!timer_running & !hay_captcha) {
 		if (despierto) {
 			estado_captcha="Voy a cobrar el chorrito";
 			if ($("#bonus_container_free_points").length !== 0) {estado_captcha+=".";}
