@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Robot para las cuentas obreras
-// @version      1.11d
-// @description  Este robot activa sólo los bonos para más PR, cobra el chorrito cada hora y apuesta. Apuesta a veces. Reporta. Se le arregló un bug en la función de reportes y cobra el bono de canje de PR por satoshis el sólo.
+// @version      1.15a
+// @description  Este es el robot ahorrador. En esta versión se detecta el "timer running"
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.11d";
+	var version="1.15a";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -95,13 +95,15 @@
 	hora_actual=hora_actual.getHours();
 	if (despierto) {estado="Estoy despierto.";}
 	else {estado="Estoy dormido.";}
-	// verifica si hay captcha
+	// verifica si hay captcha u otras condiciones
 	var hay_captcha=($('#captchasnet_free_play_captcha').is(':visible'))||($('#free_play_recaptcha').is(':visible'));
+	var timer_running=($("#multi_acct_same_ip").is(":visible"));
 	var bloqueo_ip=$('#free_play_error').is(':visible');
 	var estado_captcha="";
 	var color_robot="#054908";
 	if (hay_captcha) {estado_captcha="¡Maldita captcha! Reportando a mi amo..."; color_robot="#a40000";}
-	else {
+	if (timer_running) {estado_captcha="El reloj está corriendo. Reportando a mi amo..."; color_robot="#a40000";}
+	if (!timer_running & !hay_captcha} {
 		if (despierto) {
 			estado_captcha="Voy a cobrar el chorrito";
 			if ($("#bonus_container_free_points").length !== 0) {estado_captcha+=".";}
@@ -122,7 +124,7 @@
     ).prepend($('<style/>').text("#autofaucet p { margin: 0; margin-left: 2px;  text-align: left; }"));
 
 	// activa la rutina para que se ejecute repetidamente de manera asíncrona según condiciones:
-	if (despierto & !hay_captcha & !bloqueo_ip) {	
+	if (despierto & !hay_captcha & !bloqueo_ip & !timer_running) {	
 		setTimeout(premios.rutina,1000);  // activar en un segundo
 		// Luego de activar bonos, cobra el chorrito cuando sea posible.
 		// El cobro del chorrito se hace aproximadamente cada hora, con tiempos 
@@ -143,9 +145,16 @@
 		if (hora_actual==hora_reporte) {	// manda el reporte diario a las 12 del mediodía.
 			if (hay_captcha) {
 				Reportar("Balance al día (captcha)");
-			} else {Reportar("Balance al día.");}
-		} else
-			if (hay_captcha) {Reportar("captcha");} // reporta el problema
+			} 
+			else if (timer_running) {
+				Reportar("Balance al día (timer running)");
+			}
+			else {Reportar("Balance al día.");}
+		}
+		else {  // reporta el problema
+			if (hay_captcha) {Reportar("captcha");}
+			else if (timer_running) {Reportar("timer running");}  
+        }
 	}
 })();
 
