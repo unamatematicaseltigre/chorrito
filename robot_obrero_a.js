@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Robot para las cuentas obreras
+// @name         EpeniBot LowCost
 // @version      1.16a
 // @description  Este es el robot ahorrador. En esta versión se detecta el "timer running"
 // @author       laurentum
