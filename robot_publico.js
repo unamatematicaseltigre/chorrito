@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Robot para el chorrito (público)
+// @name         EpeniBot X2
 // @version      1.31b
 // @description  Este es el robot duplicador. En esta versión, se agrego la detección del timer running
 // @author       laurentum
