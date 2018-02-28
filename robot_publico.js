@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EpeniBot X2
-// @version      1.31b
-// @description  Este es el robot duplicador. En esta versión, se agrego la detección del timer running
+// @version      1.32b
+// @description  Este es el robot duplicador. Se obliga a refrescar la pagina en una hora.
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.31b";
+	var version="1.32b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -144,7 +144,8 @@
 			if ($('.close-reveal-modal').is(':visible')) {
 				setTimeout(function(){$('.close-reveal-modal').click();},1000);
 			}
-		},timeout+12000); // cierra la ventana de dialogo pop-up 10 segundos despues de jugar el chorrito
+		},timeout+12000); // cierra la ventana de dialogo pop-up 12 segundos despues de jugar el chorrito
+		setTimeout(function(){location.reload(true);},timeout+3610000); //obliga a hacer un refrescamiento de la pagina en una hora
 		if (hora_actual==hora_reporte) {Reportar("Balance al día");} // manda el reporte diario a las 12 del mediodía.
 	} else {
 		setTimeout(function(){location.reload();},3600000); // nos vemos en una hora.
