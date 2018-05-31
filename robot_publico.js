@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EpeniBot X2
-// @version      1.32b
-// @description  Este es el robot duplicador. Se obliga a refrescar la pagina en una hora.
+// @version      1.35b
+// @description  Este es el robot duplicador. Se visualiza los datos de la cuenta en la ventanita de la esquina.
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.32b";
+	var version="1.35b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -99,6 +99,7 @@
 	var balance_PR = parseInt($('.user_reward_points').text().replace(',',""));
 	// el tipo siempre estará despierto.
 	var despierto=true;
+	var acct_email=document.getElementById('edit_profile_form_email').value;
 	var estado="";
 	var hora_actual=new Date();
 	hora_actual=hora_actual.getHours();
@@ -125,10 +126,11 @@
         $('<div/>').attr('style',"position:fixed;top:45px;left:0;z-index:999;width:300px;background-color:"+color_robot+";color: white; text-align: left;")
             .append(
                 $('<div/>').attr('id','autofaucet')
-					.append($('<p/>').attr('style','text-decoration:bold; text-align:center').text("( ͡° ͜ʖ ͡°) ╭∩╮  v."+version))
-					.append($('<p/>').attr('style','text-decoration:bold; text-align:center').text("───────────────────────"))
-                    .append($('<p/>').text(estado))
-                    .append($('<p/>').text(estado_captcha))
+		.append($('<p/>').attr('style','text-decoration:bold; text-align:center').text("( ͡° ͜ʖ ͡°) ╭∩╮  v."+version))
+		.append($('<p/>').attr('style','text-decoration:bold; text-align:center').text("───────────────────────"))
+		.append($('<p/>').attr('style','text-decoration:bold; text-align:center').text(userID+" "+acct_email))
+                .append($('<p/>').text(estado))
+                .append($('<p/>').text(estado_captcha))
             )
     ).prepend($('<style/>').text("#autofaucet p { margin: 0; margin-left: 2px;  text-align: left; }"));
 
