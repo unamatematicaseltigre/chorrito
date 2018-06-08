@@ -2,7 +2,7 @@
 // @name         Robot DLV
 // @version      1.40b
 // @description  En esta versión se mejora el mecanismo de canje de puntos reward para incluir tickets de lotería
-// @author       laurentum
+// @author       John Galt
 // @match        https://freebitco.in/*
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/laurentum/chorrito/master/robot_publico.js
