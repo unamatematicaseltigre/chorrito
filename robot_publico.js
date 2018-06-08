@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EpeniBot X2
-// @version      1.35b
-// @description  Este es el robot duplicador. Se visualiza los datos de la cuenta en la ventanita de la esquina.
+// @version      1.40b
+// @description  En esta versión se mejora el mecanismo de canje de puntos reward para incluir tickets de lotería
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.35b";
+	var version="1.40b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -45,6 +45,7 @@
 	// de aumento premio por lanzamiento cuando tengas suficientes puntos.
 	var premios = {};
 	premios.rutina = function() {
+	var prob_bonos = 0;
         premios.puntos = parseInt($('.user_reward_points').text().replace(',',""));
         premios.temporizadorbono = {};
         if ($("#bonus_container_free_points").length !== 0) {
@@ -56,21 +57,36 @@
         } else
             premios.temporizadorbono.actual = 0;
         if (premios.temporizadorbono.actual === 0 & tiemporestante()===0) {
-			if (premios.puntos>8000) {
+			if (premios.puntos>4854) {
+				RedeemRPProduct('free_points_100');
+				setTimeout(function(){RedeemRPProduct('fp_bonus_1000');},500);
 				Reportar("Activando los bonos de 100RP y 1000% por lanzamiento.");
-				RedeemRPProduct('free_points_100');
-				RedeemRPProduct('fp_bonus_1000');
 			}
-			else if (premios.puntos>5800) {
-				Reportar("Activando los bonos de 100RP y 500% por lanzamiento.");
-				RedeemRPProduct('free_points_100');
-				RedeemRPProduct('fp_bonus_500');
+			else if (premios.puntos>2800) {
+				prob_bonos=444/1280;
+				if (Math.random()<prob_bonos) {
+					RedeemRPProduct('free_points_100');
+					setTimeout(function(){RedeemRPProduct('fp_bonus_100');},500);
+					Reportar("Activando los bonos de 100RP y 100% por lanzamiento.");
+				} else {
+					RedeemRPProduct('free_points_100');
+					setTimeout(function(){RedeemRPProduct('fp_bonus_500');},500);
+					Reportar("Activando los bonos de 100RP y 500% por lanzamiento.");
+				}
 			}
-			else if (premios.puntos>5000) {
-				Reportar("Activando los bonos de 100RP y 100% por lanzamiento.");
-				RedeemRPProduct('free_points_100');
-				RedeemRPProduct('fp_bonus_100');
-			}
+			else if (premios.puntos>2120) {
+				if (Math.random()<0.4) {
+					RedeemRPProduct('free_points_100');
+					setTimeout(function(){RedeemRPProduct('fp_bonus_100');},300);
+					setTimeout(function(){RedeemRPProduct('free_lott_50');},600);
+					Reportar("Activando los bonos de 100RP, 100% por lanzamiento y 50 TL.");
+				}
+				else {
+					RedeemRPProduct('free_points_100');
+					setTimeout(function(){RedeemRPProduct('fp_bonus_100');},500);
+					Reportar("Activando los bonos de 100RP y 100% por lanzamiento.");
+				}
+	 		}
 			else if (premios.puntos>1200) {
 				Reportar("Activando el bono de 100RP por lanzamiento.");
 				RedeemRPProduct('free_points_100');
@@ -149,7 +165,7 @@
 			}
 		},timeout+12000); // cierra la ventana de dialogo pop-up 12 segundos despues de jugar el chorrito
 		setTimeout(function(){location.reload(true);},timeout+3601000); //obliga a hacer un refrescamiento de la pagina en una hora
-		if (hora_actual==hora_reporte) {Reportar("Balance al día");} // manda el reporte diario a las 12 del mediodía.
+		if (hora_actual==hora_reporte) {Reportar("Balance al día");} // manda el reporte diario a la hora que le toque.
 	} else {
 		setTimeout(function(){location.reload();},3600000); // nos vemos en una hora.
 		if (hora_actual==hora_reporte) {	// manda el reporte diario a las 12 del mediodía.
