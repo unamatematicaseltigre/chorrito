@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         EpeniBot X2
+// @name         Robot DLV
 // @version      1.40b
 // @description  En esta versión se mejora el mecanismo de canje de puntos reward para incluir tickets de lotería
 // @author       laurentum
