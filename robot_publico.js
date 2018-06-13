@@ -85,7 +85,7 @@
 				)
 			).prepend($('<style/>').text("#autochorrito p { margin: 0; margin-left: 2px;  text-align: left; }"));
 			// activa la rutina para que se ejecute repetidamente de manera asíncrona según condiciones:
-			if (!hay_captcha & !bloqueo_ip) {	
+			if (!hay_captcha & !bloqueo_ip & !timer_running) {	
 				premios.rutina();  // reclama los premios de RP
 				var timeout=Math.floor(Math.random() * 60 )*1000+2000; //timeout adicional entre 2 y 62 segundos
 				if ($('#free_play_form_button').is(':visible')) {
