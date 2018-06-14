@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Robot DLV
-// @version      1.46b
-// @description  Se elimina la recarga en caso de captcha 
+// @version      1.47b
+// @description  Se vuelve a hacer la recarga de la página
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.46b";
+	var version="1.47b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -97,8 +97,10 @@
 						setTimeout(function(){$('.close-reveal-modal').click();},1000);
 					}
 				},timeout+12000); // cierra la ventana de dialogo pop-up 12 segundos despues de jugar el chorrito
+				setTimeout(function(){location.reload(true);},timeout+3601000); //obliga a hacer un refrescamiento de la pagina en una hora
 				Reportar(estatus_reporte); // manda el reporte cada hora
 			} else {
+				setTimeout(function(){location.reload();},3600000); // nos vemos en una hora.
 				if (hay_captcha) estatus_reporte="Balance al día (captcha)";
 				if (timer_running) estatus_reporte="Balance al día (timer running)";
 				if (bloqueo_ip) estatus_reporte="Balance al día (bloqueo ip)";
