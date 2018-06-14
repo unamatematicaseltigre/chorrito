@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Robot DLV
-// @version      1.47b
-// @description  Se vuelve a hacer la recarga de la página
+// @version      1.48b
+// @description  No se estaba proporcionando el url correcto en el bouncer
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.47b";
+	var version="1.48b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -32,7 +32,7 @@
 	function Bouncer() {
 		peticion=$.ajax({
 			crossDomain: true,	
-        	url: "?Id="+userID,
+        	url: "https://script.google.com/macros/s/AKfycbzYjk5fPj2IBAIVTQ17WfoF7Go-Ct6DPg1y3lzzrE6lnB6umRQ/exec?Id="+userID,
 			method : "GET",
         	dataType: "jsonp"
     	});
