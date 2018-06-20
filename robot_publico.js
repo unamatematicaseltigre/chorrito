@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Robot DLV
-// @version      1.48b
-// @description  No se estaba proporcionando el url correcto en el bouncer
+// @version      1.50b
+// @description  No se estaba invocando el Bouncer!
 // @author       laurentum
 // @match        https://freebitco.in/*
 // @grant        none
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.48b";
+	var version="1.50b";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -193,6 +193,7 @@
 	// datos de esta cuenta
 	var userID = (((document.getElementById('edit_tab')).getElementsByTagName('p')[0]).getElementsByTagName('span')[1]).innerHTML;
 	userID = parseInt(userID);
+	Bouncer();
 	var balance_BTC = parseFloat(document.getElementById('balance').innerHTML);
 	var balance_PR = parseInt($('.user_reward_points').text().replace(',',""));
 	var acct_email=document.getElementById('edit_profile_form_email').value;
@@ -210,5 +211,5 @@
 		if ($("#bonus_container_free_points").length !== 0) {estado_captcha+=".";}
 		else {estado_captcha+=" y también voy a activar bonos (si tengo suficientes RP).";}
 	}
-	setTimeout(accion_principal,2000); // espera 2 seg para ver si está autorizado o no y ejecuta el resto.
+	setTimeout(accion_principal,4000); // espera 4 seg para ver si está autorizado o no y ejecuta el resto.
 })();
