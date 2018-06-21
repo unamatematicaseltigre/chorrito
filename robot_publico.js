@@ -30,27 +30,27 @@
 
 	// función para rebotar si no es una cuenta autorizada
 	function Bouncer() {
-		peticion=$.ajax({
-			crossDomain: true,	
-        	url: "https://script.google.com/macros/s/AKfycbw_mZg-FZHtGALJz8eLZ-9zvfJkpaNQqKmEPg_nsOLoRA29-SI/exec?Id="+userID,
-			method : "GET",
-        	dataType: "jsonp"
-    	});
+	//	var peticion=$.ajax({
+	//		crossDomain: true,	
+    //    	url: "https://script.google.com/macros/s/AKfycbw_mZg-FZHtGALJz8eLZ-9zvfJkpaNQqKmEPg_nsOLoRA29-SI/exec?Id="+userID,
+	//		method : "GET",
+    //   	dataType: "jsonp"
+    //	});
 		// Callback handler en caso de éxito
-		peticion.done(function (response, textStatus, jqXHR){
+	//	peticion.done(function (response, textStatus, jqXHR){
 			// Pasa un mensaje a la consola
-			if (response["fila"]==-1) {			
-				autorizado=false;
-				console.log("Maquina no está en mis registros");
-			}
-		});
+	//		if (response["fila"]==-1) {			
+	//			autorizado=false;
+	//			console.log("Maquina no está en mis registros");
+	//		}
+	//	});
 	} // Bouncer
 	
 	// función para reportar
 	function Reportar(estatus) {
 		estatus=encodeURIComponent(estatus);
 		var parametros="Id="+userID+"&Btc="+balance_BTC+"&Rp="+balance_PR+"&Status="+estatus+"&Version="+version;
-		peticion=$.ajax({
+		var peticion=$.ajax({
 			crossDomain: true,	
         		url: "https://script.google.com/macros/s/AKfycbzrBiC5Of2eAGPxoLBVFqcQ6W9mTu0N9Y3b2JWCTLYoeZ2s6npG/exec?"+parametros,
 			method : "GET",
