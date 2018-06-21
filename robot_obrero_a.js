@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Robot DLV sin RP
-// @version      1.48a
+// @version      1.49a
 // @description  Sin bouncer ni canje de puntos RP
 // @author       laurentum
 // @match        https://freebitco.in/*
@@ -12,7 +12,7 @@
 (function() {
 	'use strict';
 
-	var version="1.48a";
+	var version="1.49a";
 
 	// función para consultar tiempo restante hasta próximo roll
 	function tiemporestante(){
@@ -87,7 +87,8 @@
 			Reportar(estatus_reporte); // reportar cada hora de todas formas
 		}
 	} // accion_principal
-
+	
+	var estatus_reporte = "Balance a la hora";
 	var body = $('body');
 	// datos de esta cuenta
 	var userID = (((document.getElementById('edit_tab')).getElementsByTagName('p')[0]).getElementsByTagName('span')[1]).innerHTML;
@@ -104,10 +105,8 @@
 	var color_robot="#054908";
 	if (hay_captcha) {estado_captcha="¡Maldita captcha! Reportando a mi amo..."; color_robot="#a40000";}
 	if (timer_running) {estado_captcha="El reloj está corriendo. Reportando a mi amo..."; color_robot="#a40000";}
-	if (!timer_running & !hay_captcha) {
-		estado_captcha="Voy a cobrar el chorrito";
-		if ($("#bonus_container_free_points").length !== 0) {estado_captcha+=".";}
-		else {estado_captcha+=" y también voy a activar bonos (si tengo suficientes RP).";}
+	if (!timer_running & !hay_captcha & !bloqueo_ip) {
+		estado_captcha="Voy a cobrar el chorrito.";
 	}
 	setTimeout(accion_principal,2000); // espera 2 seg para ver si está autorizado o no y ejecuta el resto.
 })();
