@@ -164,7 +164,7 @@
 			else if (premios.puntos>2120) {
 				if (Math.random()<0.4) {
 					bot_rp_100.click();
-					setTimeout(function(){bot_fr_100.click();.click();},300);
+					setTimeout(function(){bot_fr_100.click();},300);
 					setTimeout(function(){bot_tl_50.click();},600);
 					estatus_reporte="Activando los bonos de 100RP, 100% por lanzamiento y 50 TL.";
 				}
